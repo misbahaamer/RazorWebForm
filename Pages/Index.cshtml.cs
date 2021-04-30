@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -23,6 +25,13 @@ namespace RazorWebAPp.Pages
         public void OnGet()
         {
             
+
+
+        }
+        public IActionResult OnPostLogIn(string returnUrl)
+        {
+            return Challenge(new AuthenticationProperties { RedirectUri = "/Public/Form" },
+                    OpenIdConnectDefaults.AuthenticationScheme);
 
 
         }

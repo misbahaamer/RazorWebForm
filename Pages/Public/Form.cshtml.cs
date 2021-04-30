@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +47,27 @@ namespace RazorWebApp.Pages.Public
 
             SessionHelper.SetObjectAsJson(HttpContext.Session, "lastname", form.LastName);
 
+            SendEmail();
+            
             return new RedirectToPageResult("/Public/Confirm");
+        }
+
+        private void SendEmail()
+        {
+            MailMessage message= new MailMessage();
+            message.From = new
+               MailAddress("razortest1604@outlook.com");
+            message.To.Add(new
+               MailAddress("testmail@mailinator.com"));
+            message.Subject = "Test Subject";
+            message.Body = "Testing Office365 Email";
+            message.IsBodyHtml = true;
+            SmtpClient client = new SmtpClient();
+            client.Credentials = new NetworkCredential("razortest1604@outlook.com", "Rainman@1604");
+            client.Port = 587;
+            client.Host = "smtp.office365.com";
+            client.EnableSsl = true;
+            client.Send(message);
         }
     }
 }
