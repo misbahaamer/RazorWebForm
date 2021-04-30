@@ -47,7 +47,7 @@ namespace RazorWebApp.Pages.Public
 
             SessionHelper.SetObjectAsJson(HttpContext.Session, "lastname", form.LastName);
 
-            SendEmail();
+            //SendEmail();
             
             return new RedirectToPageResult("/Public/Confirm");
         }

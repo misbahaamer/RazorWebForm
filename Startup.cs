@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
+using RazorWebApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -38,6 +39,11 @@ namespace RazorWebAPp
         {
             services.AddRazorPages();
             services.AddSession();
+            services.AddTransient<IUserService, UserService>();
+            services.AddHttpClient<IUserService, UserService>(client =>
+            {
+                client.BaseAddress = new Uri("https://reqres.in/");
+            });
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = OpenIdConnectDefaults.AuthenticationScheme;
@@ -53,6 +59,7 @@ namespace RazorWebAPp
                     options.SignedOutRedirectUri = "https://localhost:44384/signout-oidc";
                     options.TokenValidationParameters.NameClaimType = "name";
                 }).AddCookie();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
