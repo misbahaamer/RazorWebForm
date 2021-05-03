@@ -21,6 +21,8 @@ namespace RazorWebAPp.Pages
         public UserData UserData { get; set; }
         [BindProperty]
         public UserDataList UserDataList { get; set; }
+        [BindProperty]
+        public List<string> AreChecked { get; set; }
 
         public PrivacyModel(ILogger<PrivacyModel> logger, IUserService userService)
         {
@@ -32,9 +34,21 @@ namespace RazorWebAPp.Pages
 
         public void OnGet()
         {
-             UserData = _userService.GetUserData().Result;
-             UserDataList = _userService.GetUserList().Result;
+            LoadData();
+        }
 
+        public async Task OnPostDelete()
+        {
+            var data = AreChecked;
+            LoadData();
+
+     
+        }
+
+        public async Task LoadData()
+        {
+            UserData = _userService.GetUserData().Result;
+            UserDataList = _userService.GetUserList().Result;
         }
     }
 }
