@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace RazorWebApp.Models
 {
-    public class Form
+    public class FormDTO
     {
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
-        public Collection<Address> Address { get; set; }
+        public Collection<AddressDTO> Address { get; set; }
 
         public string City { get; set; }
 
@@ -22,8 +20,7 @@ namespace RazorWebApp.Models
 
         public string Zip { get; set; }
     }
-
-    public class Address
+    public class AddressDTO
     {
         public string HomeAddress { get; set; }
         public string WorkAddress { get; set; }
