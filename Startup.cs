@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OpenIdConnect;
@@ -21,11 +23,6 @@ namespace RazorWebAPp
 {
     public class Startup
     {
-        private string clientId;
-        //private string authority = string.Format(CultureInfo.InvariantCulture, aadInstance, tenant); 
-        private string postLogoutRedirectUri;
-        private static string aadInstance;
-        private static string tenant;
 
         public Startup(IConfiguration configuration)
         {
@@ -37,28 +34,27 @@ namespace RazorWebAPp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+
+            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+                .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAd"));
+
+            services.AddAuthorization(options =>
+            {
+                // By default, all incoming requests will be authorized according to the default policy
+                options.FallbackPolicy = options.DefaultPolicy;
+            });
+            services.AddRazorPages()
+                .AddMvcOptions(options => { })
+                .AddMicrosoftIdentityUI();
             services.AddSession();
             services.AddTransient<IUserService, UserService>();
             services.AddHttpClient<IUserService, UserService>(client =>
             {
                 client.BaseAddress = new Uri("https://reqres.in/");
             });
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-                .AddOpenIdConnect(options =>
-                {
-                    options.Authority = "https://login.microsoftonline.com/c6923302-9f09-468c-8bb1-2eb672fdfcc1";
-                    options.ClientId = "57e0c022-6115-4cc9-b352-7b19f1f19f09";
-                    options.ResponseType = OpenIdConnectResponseType.IdToken;
-                    options.CallbackPath = "/signin-oidc";
-                    options.SignedOutRedirectUri = "https://localhost:44384/signout-oidc";
-                    options.TokenValidationParameters.NameClaimType = "name";
-                }).AddCookie();
+            
+            
+
             services.AddAutoMapper(typeof(Startup));
         }
 
