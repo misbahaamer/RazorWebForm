@@ -2,3 +2,44 @@
 @model RazorWebApp.Pages.Public.ConfirmModel
 @{
 }
+<div class="container">
+    <h3>User Data List</h3>
+    <form method="post">
+        <button type="submit" asp-page-handler="SaveChanges">Save Changes</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    @*<th scope="col">Persons</th>*@
+                    @*<th scope="col">Netflix</th>
+        <th scope="col">Hulu</th>
+        <th scope="col">Mtv</th>
+        <th scope="col">Disney</th>
+        <th scope="col">Hotstar</th>
+        <th scope="col">Amzaon</th>
+        <th scope="col">Peacock</th>*@
+                        <th scope="col">Person</th>
+                        @foreach (var sub in Model.subsList)
+                        {
+                            <th scope="col">@sub.SubscriptionName</th>
+                        }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.personSubs.plist)
+                {
+                    <tr scope="row">
+                        <th style="text-align:center" scope="row">@item.PersonName</th>
+                        <td style="text-align:center"><input class="form-check-input" value ="@item.PersonId" type="checkbox" name="@item.Amazon"></td>
+                        <td style="text-align:center"><input class="form-check-input" value ="@item.PersonId" type="checkbox" name="Netflix"></td>
+                        <td style="text-align:center"><input class="form-check-input" value="@item.PersonId" type="checkbox" name="Hulu"></td>
+                        <td style="text-align:center"><input class="form-check-input" value="@item.PersonId" type="checkbox" name="Peacock"></td>
+                        <td style="text-align:center"><input class="form-check-input" value="@item.PersonId" type="checkbox" name="Disney"></td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </form>
+
+</div>
