@@ -45,7 +45,7 @@ namespace RazorWebAPp.Pages
      
         }
 
-        public async Task LoadData()
+        public void LoadData()
         {
             UserData = _userService.GetUserData().Result;
             UserDataList = _userService.GetUserList().Result;

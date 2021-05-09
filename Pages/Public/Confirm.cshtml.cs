@@ -16,69 +16,37 @@ namespace RazorWebApp.Pages.Public
         public string lastname { get; set; }
 
         [BindProperty]
-        public PersonSubs personSubs { get; set; }
+        public PersonList persons { get; set; }
         [BindProperty]
-        public List<Subscriptions> subsList { get; set; }
-        [BindProperty]
-        public List<string> Amazon { get; set; }
-        [BindProperty]
-        public List<string> Netflix { get; set; }
-        [BindProperty]
-        public List<string> Hulu { get; set; }
-        [BindProperty]
-        public List<string> Peacock { get; set; }
-        [BindProperty]
-        public List<string> Disney { get; set; }
+        public List<Subscriptions> AllSubscriptions { get; set; }
+
 
 
         public void OnGet()
         {
             //firstname = HttpContext.Session.GetString("firstname");
             //lastname = SessionHelper.GetObjectFromJson<string>(HttpContext.Session, "lastname");
-            PersonSubs ps = new PersonSubs();
-            
-            personSubs = ps;
-            var slist = LoadSubscription();
-            subsList = slist;
+            PersonList ps = new PersonList();
+
+            //var slist = LoadSubscription();
+            persons = ps;
+            AllSubscriptions = persons.plist.OrderByDescending(x => x.subscriptions.Count()).First().subscriptions;
+
         }
 
-        private List<Subscriptions> LoadSubscription()
+        //private List<Subscriptions> LoadSubscription()
+        //{
+        //    SubscriptionsList subscriptionsList = new SubscriptionsList();
+                
+        //    return subscriptionsList.slist;
+        //}
+        public void OnPostSaveChanges(PersonList personSubs)
         {
-            var SubscriptionList = new List<Subscriptions>()
-                { new Subscriptions()
-                    {
-                        SubcriptionId = 1,
-                        SubscriptionName = "Amazon"
-                    },
-                    new Subscriptions()
-                    {
-                        SubcriptionId = 2,
-                        SubscriptionName = "Hulu"
-                    },
-                    new Subscriptions()
-                    {
-                        SubcriptionId = 3,
-                        SubscriptionName = "Disney"
-                    },
-                    new Subscriptions()
-                    {
-                        SubcriptionId = 4,
-                        SubscriptionName = "Peacock"
-                    },
-                    new Subscriptions()
-                    {
-                        SubcriptionId = 5,
-                        SubscriptionName = "Netflix"
-                    }};
-            return SubscriptionList;
-        }
-        public void OnPostSaveChanges(PersonSubs personSubs)
-        {
-            var amazon = Amazon    ;
-            var netflix = Netflix   ;
-            var hulu = Hulu      ;
-            var peacock = Peacock   ;
-            var  disney =    Disney;
+            //var amazon = Amazon    ;
+            //var netflix = Netflix   ;
+            //var hulu = Hulu      ;
+            //var peacock = Peacock   ;
+            //var  disney =    Disney;
     }
     }
 }
