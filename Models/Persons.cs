@@ -12,11 +12,13 @@ namespace RazorWebApp.Models
         public int PersonId { get; set; }
         public string PersonName { get; set; }
         public List<Subscriptions> subscriptions { get; set; }
+        public List<string> AreChecked { get; set; }
     }
     public class Subscriptions
     {
         public int SubcriptionId { get; set; }
         public string SubscriptionName { get; set; }
+        public bool IsChecked { get; set; }
     }
     //public class PerSubs
     //{
@@ -42,7 +44,7 @@ namespace RazorWebApp.Models
                     new Subscriptions()
                     {
                         SubcriptionId = 1,
-                        SubscriptionName = "Amazon"
+                        SubscriptionName = "Amazon",
                     },
                     new Subscriptions()
                     {

@@ -19,6 +19,9 @@ namespace RazorWebApp.Pages.Public
         public PersonList persons { get; set; }
         [BindProperty]
         public List<Subscriptions> AllSubscriptions { get; set; }
+        [BindProperty]
+        public List<string> AreChecked { get; set; }
+
 
 
 
@@ -28,16 +31,9 @@ namespace RazorWebApp.Pages.Public
             //lastname = SessionHelper.GetObjectFromJson<string>(HttpContext.Session, "lastname");
             PersonList ps = new PersonList();
 
-            //var slist = LoadSubscription();
             persons = ps;
             AllSubscriptions = persons.plist.OrderByDescending(x => x.subscriptions.Count()).First().subscriptions;
-            //var persubs = persons.plist[1].subscriptions.OrderBy(x => x.SubcriptionId);
-            //var mysub = persubs.Select(x => x.SubcriptionId).First();
-            //if (AllSubscriptions[1].SubcriptionId == mysub)
-            //{
-            //    var items = AllSubscriptions.Except(persubs).Any();
-            //    //var items2 = persubs.Any(AllSubscriptions.Contains(persubs));
-            //}
+
 
         }
 
@@ -47,7 +43,7 @@ namespace RazorWebApp.Pages.Public
                 
         //    return subscriptionsList.slist;
         //}
-        public void OnPostSaveChanges(PersonList personSubs)
+        public void OnPostSaveChanges(PersonList persons)
         {
             //var amazon = Amazon    ;
             //var netflix = Netflix   ;

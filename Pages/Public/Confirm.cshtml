@@ -6,7 +6,7 @@
     <h3>User Data List</h3>
     <form method="post">
         <button type="submit" asp-page-handler="SaveChanges">Save Changes</button>
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     @*<th scope="col">Persons</th>*@
@@ -33,15 +33,18 @@
                     <th scope="row">
                         @Model.persons.plist[i].PersonName
                     </th>
+
                     @for (int j = 0; j < subscriptions.Count; j++)
                     {
 
-                        var item2 = item.subscriptions.Where(x => x.SubcriptionId == subscriptions[j].SubcriptionId).Select(x => x.SubcriptionId).FirstOrDefault();
+                        var sub = item.subscriptions.FirstOrDefault(x => x.SubcriptionId == Model.AllSubscriptions[j].SubcriptionId);
                         <td>
                              
-                            @if (item2 == subscriptions[j].SubcriptionId)
-                            {
-                                <input class="form-check-input" value="" type="checkbox" name="Amazon">
+                            @if (sub != null)
+                                    {
+
+                                        var value = item.PersonId + "," + sub.SubcriptionId;
+                                <input class="form-check-input" value="@value" type="checkbox" name="AreChecked">
                             }
                             else
                             {
