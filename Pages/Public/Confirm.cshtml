@@ -25,24 +25,32 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.persons.plist)
+                @for (int i = 0; i < Model.persons.plist.Count; i++)
                 {
+                    var item = Model.persons.plist[i];
                     var subscriptions = Model.AllSubscriptions;
-                    <tr scope="row">
-                        <th  scope="row">@item.PersonName</th>
+                <tr>
+                    <th scope="row">
+                        @Model.persons.plist[i].PersonName
+                    </th>
+                    @for (int j = 0; j < subscriptions.Count; j++)
+                    {
+
+                        var item2 = item.subscriptions.Where(x => x.SubcriptionId == subscriptions[j].SubcriptionId).Select(x => x.SubcriptionId).FirstOrDefault();
                         <td>
-                            @if (subscriptions.Select(x => x.SubscriptionName).ToList().Contains(item.subscriptions.Select(x => x.SubscriptionName).FirstOrDefault()))
+                             
+                            @if (item2 == subscriptions[j].SubcriptionId)
                             {
-                                <p>present</p>
+                                <input class="form-check-input" value="" type="checkbox" name="Amazon">
+                            }
+                            else
+                            {
+                                <input class="form-check-input" value="" type="checkbox" name="Amazon" disabled>
                             }
                         </td>
-                        <td ><input class="form-check-input" value ="@item.PersonId" type="checkbox" name="Amazon"></td>
-                        <td ><input class="form-check-input" value ="@item.PersonId" type="checkbox" name="Netflix"></td>
-                        <td ><input class="form-check-input" value="@item.PersonId" type="checkbox" name="Hulu"></td>
-                        <td ><input class="form-check-input" value="@item.PersonId" type="checkbox" name="Peacock"></td>
-                        <td ><input class="form-check-input" value="@item.PersonId" type="checkbox" name="Disney"></td>
+                    }
 
-                    </tr>
+                </tr>
                 }
 
             </tbody>

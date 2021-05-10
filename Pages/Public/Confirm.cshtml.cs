@@ -31,6 +31,13 @@ namespace RazorWebApp.Pages.Public
             //var slist = LoadSubscription();
             persons = ps;
             AllSubscriptions = persons.plist.OrderByDescending(x => x.subscriptions.Count()).First().subscriptions;
+            //var persubs = persons.plist[1].subscriptions.OrderBy(x => x.SubcriptionId);
+            //var mysub = persubs.Select(x => x.SubcriptionId).First();
+            //if (AllSubscriptions[1].SubcriptionId == mysub)
+            //{
+            //    var items = AllSubscriptions.Except(persubs).Any();
+            //    //var items2 = persubs.Any(AllSubscriptions.Contains(persubs));
+            //}
 
         }
 
