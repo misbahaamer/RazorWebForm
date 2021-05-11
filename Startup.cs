@@ -77,10 +77,7 @@ namespace RazorWebAPp
             {
                 context.Response.Headers.Add(
                     "Content-Security-Policy",
-                    "default-src 'self';" +
-                    "script-src 'self'; " +
-                    "style-src 'self'; " +
-                    "img-src 'self'");
+                    "script-src 'self'; ");
 
                 await next();
             });
