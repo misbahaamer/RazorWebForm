@@ -8,3 +8,39 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<form class="container" method="post">
+    <h2>Person Details</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="border: 1px solid black;">Person</th>
+                @foreach (var item in Model.subscriptionDetails)
+                {
+                    <th style="border: 1px solid black;">@item</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+
+            @for (int i = 0; i < Model.personData.Count; i++)
+            {
+                <tr>
+                    <td style="border: 1px solid black;">
+                        <input asp-for="personData[i].person.PersonName" />
+                    </td>
+                    @for (int j = 0; j < Model.subscriptionDetails.Count; j++)
+                    {
+                        <td style="border: 1px solid black;">
+                            <input type="hidden" asp-for="personData[i].subList[j].SubId" />
+                            <input type="hidden" asp-for="personData[i].subList[j].SubName" />
+                            <input type="checkbox" asp-for="personData[i].subList[j].IsChecked" />
+                        </td>
+                    }
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary" asp-page-handler="SubmitData" asp-page-data="Index">Submit</button>
+</form>
