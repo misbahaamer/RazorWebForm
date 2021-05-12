@@ -2,3 +2,62 @@
 @model RazorWebApp.Pages.Public.ConfirmModel
 @{
 }
+<div class="container">
+    <h3>User Data List</h3>
+    <form method="post">
+        <button type="submit" asp-page-handler="SaveChanges">Save Changes</button>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    @*<th scope="col">Persons</th>*@
+                    @*<th scope="col">Netflix</th>
+        <th scope="col">Hulu</th>
+        <th scope="col">Mtv</th>
+        <th scope="col">Disney</th>
+        <th scope="col">Hotstar</th>
+        <th scope="col">Amzaon</th>
+        <th scope="col">Peacock</th>*@
+                        <th scope="col">Person</th>
+                        @foreach (var sub in Model.persons.plist.OrderByDescending(x => x.subscriptions.Count()).First().subscriptions)
+                        {
+                            <th scope="col">@sub.SubscriptionName</th>
+                        }
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.persons.plist.Count; i++)
+                {
+                    var item = Model.persons.plist[i];
+                    var subscriptions = Model.AllSubscriptions;
+                <tr>
+                    <th scope="row">
+                        @Model.persons.plist[i].PersonName
+                    </th>
+
+                    @for (int j = 0; j < subscriptions.Count; j++)
+                    {
+
+                        var sub = item.subscriptions.FirstOrDefault(x => x.SubcriptionId == Model.AllSubscriptions[j].SubcriptionId);
+                        <td>
+                             
+                            @if (sub != null)
+                                    {
+
+                                        var value = item.PersonId + "," + sub.SubcriptionId;
+                                <input class="form-check-input" value="@value" type="checkbox" name="AreChecked">
+                            }
+                            else
+                            {
+                                <input class="form-check-input" value="" type="checkbox" name="Amazon" disabled>
+                            }
+                        </td>
+                    }
+
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </form>
+
+</div>

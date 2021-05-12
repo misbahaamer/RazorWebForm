@@ -15,13 +15,41 @@ namespace RazorWebApp.Pages.Public
         public string firstname { get; set; }
         public string lastname { get; set; }
 
-        public Form formdata { get; set; }
+        [BindProperty]
+        public PersonList persons { get; set; }
+        [BindProperty]
+        public List<Subscriptions> AllSubscriptions { get; set; }
+        [BindProperty]
+        public List<string> AreChecked { get; set; }
+
+
+
 
         public void OnGet()
         {
-            firstname = HttpContext.Session.GetString("firstname");
-            lastname = SessionHelper.GetObjectFromJson<string>(HttpContext.Session, "lastname");
+            //firstname = HttpContext.Session.GetString("firstname");
+            //lastname = SessionHelper.GetObjectFromJson<string>(HttpContext.Session, "lastname");
+            PersonList ps = new PersonList();
+
+            persons = ps;
+            AllSubscriptions = persons.plist.OrderByDescending(x => x.subscriptions.Count()).First().subscriptions;
+
+
         }
-       
+
+        //private List<Subscriptions> LoadSubscription()
+        //{
+        //    SubscriptionsList subscriptionsList = new SubscriptionsList();
+                
+        //    return subscriptionsList.slist;
+        //}
+        public void OnPostSaveChanges(PersonList persons)
+        {
+            //var amazon = Amazon    ;
+            //var netflix = Netflix   ;
+            //var hulu = Hulu      ;
+            //var peacock = Peacock   ;
+            //var  disney =    Disney;
+    }
     }
 }

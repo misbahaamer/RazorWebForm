@@ -1,7 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,6 +19,13 @@ namespace RazorWebApp.Pages.Public
 {
     public class FormModel : PageModel
     {
+
+        private readonly IMapper _mapper;
+
+        public FormModel(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
 
         [BindProperty]
         public Form formdata { get; set; }
@@ -32,6 +44,24 @@ namespace RazorWebApp.Pages.Public
             tempStates.Add(new SelectListItem { Value = "CO", Text = "Colorado" });
 
             States = tempStates;
+
+            Form form = new Form();
+            Address address = new Address();
+
+            form.FirstName = "firstname";
+            form.LastName = "lastname";
+            form.City = "city";
+            form.State = "state";
+            form.Zip = "12345";
+            //form.Address = new Collection<Address>();
+            //address.HomeAddress = "home address";
+            //address.WorkAddress = "work address";
+            //address.OtherAddress = "other address";
+
+            //form.Address.Add(address);
+
+            var formDTO = _mapper.Map<FormDTO>(form);
+
         
 
             //ViewData["states"] = dropdown;
@@ -44,7 +74,27 @@ namespace RazorWebApp.Pages.Public
 
             SessionHelper.SetObjectAsJson(HttpContext.Session, "lastname", form.LastName);
 
+            //SendEmail();
+            var formDTO = _mapper.Map<FormDTO>(form);
             return new RedirectToPageResult("/Public/Confirm");
+        }
+
+        private void SendEmail()
+        {
+            MailMessage message= new MailMessage();
+            message.From = new
+               MailAddress("razortest1604@outlook.com");
+            message.To.Add(new
+               MailAddress("testmail@mailinator.com"));
+            message.Subject = "Test Subject";
+            message.Body = "Testing Office365 Email";
+            message.IsBodyHtml = true;
+            SmtpClient client = new SmtpClient();
+            client.Credentials = new NetworkCredential("razortest1604@outlook.com", "Rainman@1604");
+            client.Port = 587;
+            client.Host = "smtp.office365.com";
+            client.EnableSsl = true;
+            client.Send(message);
         }
     }
 }

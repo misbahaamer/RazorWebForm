@@ -3,6 +3,34 @@
 @{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+@if (Model.UserData.Data != null && Model.UserDataList.Data != null)
+{
+    <div class="container">
+        <h3>User Data</h3>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">avatar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">@Model.UserData.Data.Id</th>
+                    <td>@Model.UserData.Data.First_Name</td>
+                    <td>@Model.UserData.Data.Last_Name</td>
+                    <td>@Model.UserData.Data.Email</td>
+                    <td>@Model.UserData.Data.Avatar</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    @await Html.PartialAsync("./Views/_Table", Model.UserDataList.Data)
+}
+

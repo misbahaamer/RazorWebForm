@@ -9,7 +9,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+  color: #0f3de6;
 }
 
 .btn-primary {
@@ -59,8 +59,11 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    --header-height: 90px;
+    margin: var(--header-height) 0 0 0;
+    font-family: 'Muli', sans-serif;
 }
 .footer {
   position: absolute;
@@ -68,4 +71,94 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+/*****************************************************************************************************************************************************/
+th { 
+    text-align:center;
+}
+td {
+    text-align: center;
+}
+input[type="checkbox"] {
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+}
+/*------------------------------------------------------------------------*/
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+}
+.preload * {
+    transition: none !important;
+}
+.header__button {
+
+    margin-right: 10px;
+    flex-shrink: 0;
+    background: none;
+    outline: none;
+    border: none;
+    color: #0f3de6;
+    cursor: pointer;
+}
+.nav__links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100vh;
+    width: 250px;
+    background: #0f3de6;
+    transform: translateX(-250px);
+    transition: transform 0.3s;
+}
+.sidebar {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+    .sidebar a {
+        color: #fff;
+    }
+.nav__link {
+    display: flex;
+    align-items: center;
+    color: #666666;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 12px 15px;
+    background: transform 0.2s;
+}
+.nav--open {
+    transform: translateX(0);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+.nav-item  a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item:hover {
+    background-color: rgb(243 240 247 / 0.10);
+    color: white;
+}
+
+.nav__overlay {
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.nav--open .nav__overlay {
+    visibility: visible;
+    opacity: 1;
 }
