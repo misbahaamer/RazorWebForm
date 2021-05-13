@@ -1,0 +1,62 @@
+﻿@page
+@model RazorWebApp.Pages.Public.DocumentUploadModel
+@{
+}
+<h3>Upload a File</h3>
+<form method="post" enctype="multipart/form-data">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">First Name</label>
+            <input asp-for="FirstName"  type="text"  class="form-control" id="inputFirstName" placeholder="firstname" value="@Model.FirstName">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">Last Name</label>
+            <input asp-for="LastName"  type="text"  class="form-control" id="inputLastName" placeholder="lastname" value="@Model.LastName">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <input type="file" id="fUpload" name="files" multiple class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding-top:10px;">
+            <button type="submit" asp-page-handler="Upload" >Upload</button>
+        </div>
+    </div>
+</form>
+
+<h3>Attached Documents</h3>
+
+<div class="container">
+    <h3>User Data List</h3>
+    <form method="post">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Document Id</th>
+                    <th scope="col">Document Name</th>
+                    <th scope="col">Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Files!= null && Model.Files.Count > 0)
+                {
+                    @foreach (var item in Model.Files)
+                    {
+                        <tr>
+                            <td>@item.FileId</td>
+                            <td>@item.FileName</td>
+                            <td>@item.FileType</td>
+                        </tr>
+                    }
+                }
+
+
+            </tbody>
+        </table>
+    </form>
+
+</div>

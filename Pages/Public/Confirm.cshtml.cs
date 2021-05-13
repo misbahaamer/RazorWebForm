@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 using RazorWebApp.Helper;
 using RazorWebApp.Models;
 
@@ -13,7 +14,7 @@ namespace RazorWebApp.Pages.Public
     public class ConfirmModel : PageModel
     {
         public string firstname { get; set; }
-        public string lastname { get; set; }
+        public PersonList PersonsData { get; set; }
 
         [BindProperty]
         public PersonList persons { get; set; }
@@ -43,13 +44,29 @@ namespace RazorWebApp.Pages.Public
                 
         //    return subscriptionsList.slist;
         //}
-        public void OnPostSaveChanges(PersonList persons)
+        public void OnPostSaveChanges()
         {
-            //var amazon = Amazon    ;
-            //var netflix = Netflix   ;
-            //var hulu = Hulu      ;
-            //var peacock = Peacock   ;
-            //var  disney =    Disney;
-    }
+            //List<Persons> persons = new List<Persons>();
+            //List<Subscriptions> subscriptions = new List<Subscriptions>();
+            //var sorted = AreChecked.OrderBy(x => x);
+            //foreach (var item in sorted)
+            //{
+            //    var index = item.Split(':')[0];
+            //    var subscription = item.Split(':')[1];
+            //    Persons person = new Persons();
+            //    Subscriptions subs = new Subscriptions();
+            //    person.PersonId = Convert.ToInt32(index);
+            //    subs.SubcriptionId = Convert.ToInt32(subscription);
+            //    subscriptions.Add(new Subscriptions() { SubcriptionId = subs.SubcriptionId});
+
+            //}
+            PersonList pl = new PersonList();
+            PersonsData = pl;
+            var data = JsonConvert.SerializeObject(pl.plist);
+            HttpContext.Session.SetString("pdata", data);
+            //SessionHelper.SetObjectAsJson(HttpContext.Session, "personData", data);
+
+            var total = persons;
+        }
     }
 }

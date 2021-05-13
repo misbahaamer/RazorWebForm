@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using RazorWebApp.Helper;
 using RazorWebApp.Models;
 using RazorWebApp.Services;
 using System;
@@ -24,6 +27,8 @@ namespace RazorWebAPp.Pages
         [BindProperty]
         public List<string> AreChecked { get; set; }
 
+        public PersonList PrivacyPersonsData { get; set; }
+
         public PrivacyModel(ILogger<PrivacyModel> logger, IUserService userService)
         {
             _logger = logger;
@@ -35,6 +40,13 @@ namespace RazorWebAPp.Pages
         public void OnGet()
         {
             LoadData();
+            if (PrivacyPersonsData == null)
+            {
+                var data = HttpContext.Session.GetString("pdata");
+                var converted = JsonConvert.DeserializeObject<List<Persons>>(data);
+                //PrivacyPersonsData = SessionHelper.GetObjectFromJson<PersonList>(HttpContext.Session, "personData");
+            }
+            
         }
 
         public async Task OnPostDelete()

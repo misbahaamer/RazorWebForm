@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -44,7 +45,13 @@ namespace RazorWebAPp
             //    options.FallbackPolicy = options.DefaultPolicy;
             //});
             services.AddRazorPages()
-                .AddMvcOptions(options => { })
+                .AddMvcOptions(options => 
+                {
+                    options.MaxModelValidationErrors = 50;
+                    options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
+                        _ => "The field is required.");
+                }
+                )
                 .AddMicrosoftIdentityUI();
             services.AddSession();
             services.AddTransient<IUserService, UserService>();
@@ -56,6 +63,7 @@ namespace RazorWebAPp
             
 
             services.AddAutoMapper(typeof(Startup));
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

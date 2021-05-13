@@ -28,6 +28,7 @@
             {
                 <tr>
                     <td style="border: 1px solid black;">
+                        <input type="hidden" asp-for="personData[i].person.PersonId" />
                         <input asp-for="personData[i].person.PersonName" />
                     </td>
                     @for (int j = 0; j < Model.subscriptionDetails.Count; j++)
@@ -45,7 +46,7 @@
     </table>
     <button type="submit" class="btn btn-primary" asp-page-handler="SubmitData" asp-page-data="Index">Submit</button>
 </form>
-=======
+
 <div>
     <form method="post">
         <button type="submit" class="btn btn-primary" asp-page-handler="LogIn">LogIn</button>

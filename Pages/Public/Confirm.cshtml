@@ -43,7 +43,7 @@
                             @if (sub != null)
                                     {
 
-                                        var value = item.PersonId + "," + sub.SubcriptionId;
+                                        var value = item.PersonId + ":" + sub.SubcriptionId;
                                 <input class="form-check-input" value="@value" type="checkbox" name="AreChecked">
                             }
                             else
