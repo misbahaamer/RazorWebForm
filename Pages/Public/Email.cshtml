@@ -1,0 +1,73 @@
+﻿@page
+@model RazorWebApp.Pages.Public.EmailModel
+@{
+}
+
+<h3 class="text-center">Email Draft</h3>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="float-lg-right">
+        <button class="btn btn btn-primary" type="submit" asp-page-handler="OrgEmailDraft">
+            <i class="fas fa-arrow-alt-circle-left"></i> Site Personel
+        </button>
+        <button class="btn btn btn-primary" type="submit" asp-page-handler="OrgEmailDraft">
+            Finish <i class="fas fa-arrow-alt-circle-right"></i>
+        </button>
+    </div>
+    <div>
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">From:</label>
+            <div>
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="User@Domain.com">
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-5">
+
+                <div class="form-group row eoform">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">To:</label>
+                    <div class="col-5 eocol">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row eoform">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Cc:</label>
+                    <div class="col-5 eocol">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row eoform">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Bcc:</label>
+                    <div class="col-5 eocol">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row eoform">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Subject:</label>
+                    <div class="col-5 eocol">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row eoform">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Attachment:</label>
+                    <div class="col-5 eocol">
+                        <input type="file" class="custom-file-input" id="fUpload" name="files" multiple>
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                </div>
+                <button class="btn btn-primary float-right" type="submit" asp-page-handler="Upload">Upload</button>
+            </div>
+            <div class="col-7">
+                <div class="form-group row">
+                    <label for="staticEmail">Body:</label>
+                    <div class="col-10">
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="25"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

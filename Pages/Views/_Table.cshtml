@@ -8,6 +8,15 @@
 <div class="container">
     <h3>User Data List</h3>
     <form method="post">
+        <div class="form-group col-md-4">
+            <label for="States">Select: </label>
+            <select id="inputState" class="form-control" asp-items="Model.Columns">
+                @*<option selected >Choose...</option>
+            <option  ></option>*@
+            </select>
+            <input type="text" class="form-control" id="searchId" >
+            <button type="submit" asp-page-handler="">Search</button>
+        </div>
         <table class="table table-sm">
             <button type="submit" asp-page-handler="Delete">Delete</button>
             <thead>

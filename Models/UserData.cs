@@ -16,7 +16,7 @@ namespace RazorWebApp.Models
         public int Per_Page { get; set; }
         public int Total_Pages { get; set; }
         public int Total { get; set; }
-        public IEnumerable<User> Data { get; set; }
+        public List<User> Data { get; set; }
         public Support Support { get; set; }
     }
 }
