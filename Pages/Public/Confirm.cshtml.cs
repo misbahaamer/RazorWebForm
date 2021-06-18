@@ -34,7 +34,7 @@ namespace RazorWebApp.Pages.Public
 
             persons = ps;
             AllSubscriptions = persons.plist.OrderByDescending(x => x.subscriptions.Count()).First().subscriptions;
-
+            
 
         }
 

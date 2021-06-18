@@ -1,3 +1,5 @@
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
@@ -54,14 +56,14 @@ namespace RazorWebAPp
                 )
                 .AddMicrosoftIdentityUI();
             services.AddSession();
-            services.AddTransient<IUserService, UserService>();
+            //services.AddTransient<IUserService, UserService>();
             services.AddHttpClient<IUserService, UserService>(client =>
             {
                 client.BaseAddress = new Uri("https://reqres.in/");
             });
-            
-            
 
+
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddAutoMapper(typeof(Startup));
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
         }

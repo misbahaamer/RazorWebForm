@@ -51,6 +51,7 @@
             </div>
             <table class="table table-sm">
                 <button type="submit" asp-page-handler="Delete">Delete</button>
+                <button type="submit" asp-page-handler="ViewPDF">View</button>
                 <thead>
                     <tr>
                         @*<th scope="col">#</th>*@
@@ -64,21 +65,21 @@
                 <tbody>
                     @foreach (var item in Model.UserDataList.Data)
                     {
-                    <tr>
-                        @*<th scope="row">@item.Id</th>*@
-                        @if (Model.AreChecked != null && Model.AreChecked.Count > 0 && Model.AreChecked.Contains(item.Id.ToString()))
-                        {
-                            <td><input class="form-check-input" type="checkbox" value=@item.Id name="AreChecked" checked></td>
-                        }
-                        else
-                        {
-                            <td><input class="form-check-input" type="checkbox" value=@item.Id name="AreChecked"></td>
-                        }
-                        <td>@item.First_Name</td>
-                        <td>@item.Last_Name</td>
-                        <td>@item.Email</td>
-                        <td>@item.Avatar</td>
-                    </tr>
+                        <tr>
+                            @*<th scope="row">@item.Id</th>*@
+                            @if (Model.AreChecked != null && Model.AreChecked.Count > 0 && Model.AreChecked.Contains(item.Id.ToString()))
+                            {
+                                <td><input class="form-check-input" type="checkbox" value=@item.Id name="AreChecked" checked></td>
+                            }
+                            else
+                            {
+                                <td><input class="form-check-input" type="checkbox" value=@item.Id name="AreChecked"></td>
+                            }
+                            <td>@item.First_Name</td>
+                            <td>@item.Last_Name</td>
+                            <td>@item.Email</td>
+                            <td>@item.Avatar</td>
+                        </tr>
                     }
 
                 </tbody>
