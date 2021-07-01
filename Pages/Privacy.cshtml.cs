@@ -38,7 +38,8 @@ namespace RazorWebAPp.Pages
         [BindProperty]
         public string Input { get; set; }
         public PersonList PrivacyPersonsData { get; set; }
-
+        [BindProperty]
+        public string Output { get; set; }
         [BindProperty]
         public List<SelectListItem> Columns { get; set; }
 
@@ -55,6 +56,7 @@ namespace RazorWebAPp.Pages
         public void OnGet()
         {
             LoadData();
+            Output = JsonConvert.SerializeObject(UserDataList.Data);
             //if (PrivacyPersonsData == null)
             //{
             //    var data = HttpContext.Session.GetString("pdata");
@@ -152,9 +154,21 @@ namespace RazorWebAPp.Pages
         public void LoadData()
         {
             UserData = _userService.GetUserData().Result;
-            UserDataList = _userService.GetUserList().Result;
-            
-            
+            var data1 = _userService.GetUserList().Result;
+            var data2 = _userService.GetUserList().Result;
+            UserDataList dataList = new UserDataList();
+            dataList.Data = new List<User>();
+            dataList.Data.AddRange(data1.Data);
+            foreach (var item in data2.Data)
+            {
+                item.Id = item.Id + 10;
+                item.First_Name = item.First_Name + "data2";
+                item.Last_Name = item.Last_Name + "data2";
+            }
+            dataList.Data.AddRange(data2.Data);
+            UserDataList = dataList;
+
+
 
         }
 

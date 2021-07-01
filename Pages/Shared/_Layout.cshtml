@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-
+    <link rel="stylesheet" href="~/paginationjs/pagination.css" />
 
 </head>
 <body>
@@ -54,18 +54,17 @@
     </div>
 
     @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - RazorWebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>*@
+            <div class="container">
+                &copy; 2021 - RazorWebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            </div>
+        </footer>*@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="~/lib/font-awesome/js/all.min.js"></script>
     <script src="~/lib/font-awesome/js/fontawesome.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script src="~/paginationjs/pagination.min.js" ></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

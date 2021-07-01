@@ -83,14 +83,14 @@ namespace RazorWebAPp
                 
             }
 
-            app.Use(async (context, next) =>
-            {
-                context.Response.Headers.Add(
-                    "Content-Security-Policy",
-                    "script-src 'self'; ");
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.Headers.Add(
+            //        "Content-Security-Policy",
+            //        "script-src 'self'; ");
 
-                await next();
-            });
+            //    await next();
+            //});
 
 
             app.UseHttpsRedirection();

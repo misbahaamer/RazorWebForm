@@ -43,19 +43,20 @@
                 <label for="States">Select: </label>
                 <select id="inputState" class="form-control" asp-items="Model.Columns" name="SelectOption">
                     @*<option selected >Choose...</option>
-            <option  ></option>*@
+                <option  ></option>*@
                 </select>
                 <input type="text" class="form-control" id="searchId" name="Input">
                 <button type="submit" asp-page-handler="SearchForData">Search</button>
                 <button type="submit" asp-page-handler="ClearData">Clear</button>
             </div>
-            <table class="table table-sm">
+            <table id="tbldata" class="table table-sm">
                 <button type="submit" asp-page-handler="Delete">Delete</button>
                 <button type="submit" asp-page-handler="ViewPDF">View</button>
                 <thead>
                     <tr>
                         @*<th scope="col">#</th>*@
                         <th></th>
+                        <th scope="col">ID</th>
                         <th scope="col">First</th>
                         <th scope="col">Last</th>
                         <th scope="col">Email</th>
@@ -75,6 +76,7 @@
                             {
                                 <td><input class="form-check-input" type="checkbox" value=@item.Id name="AreChecked"></td>
                             }
+                            <td>@item.Id</td>
                             <td>@item.First_Name</td>
                             <td>@item.Last_Name</td>
                             <td>@item.Email</td>
@@ -84,10 +86,58 @@
 
                 </tbody>
             </table>
+            <div id="wrapper">
+                <section>
+                    <div class="data-container"></div>
+                    <div id="pagination-demo1"></div>
+
+
+                    <div class="data-container"></div>
+                    <div id="pagination-demo2"></div>
+                </section>
+            </div>
         </form>
+
 
     </div>
 
 
 }
+@*<script>
+    (function () {
+
+        (function () {
+            var container = $('#tbldata');
+            container.pagination({
+                dataSource: @Output,
+                //locator: 'items',
+                totalNumber: 12,
+                pageSize: 2,
+                showPageNumbers: true,
+                showPrevious: true,
+                showNext: true,
+                showNavigator: true,
+                showFirstOnEllipsisShow: true,
+                showLastOnEllipsisShow: true,
+                ajax: {
+                    beforeSend: function () {
+                        container.prev().html('Loading data from flickr.com ...');
+                    }
+                },
+                callback: function (response, pagination) {
+                    window.console && console.log(22, response, pagination);
+                    var dataHtml = '<ul>';
+
+                    $.each(response, function (index, item) {
+                        dataHtml += '<li>' + item.title + '</li>';
+                    });
+
+                    dataHtml += '</ul>';
+
+                    container.prev().html(dataHtml);
+                }
+            })
+        });
+    })
+</script>*@
 
